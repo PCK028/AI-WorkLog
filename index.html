@@ -1,13 +1,13 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.json"><title>AI WorkLog V5.4.0</title>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#111827"><link rel="manifest" href="manifest.json"><title>AI WorkLog V5.4.1</title>
 <style>*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:#111827;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:#111827;color:#fff;padding:18px 16px;position:sticky;top:0;z-index:5}h1{margin:0;font-size:22px}.sub{font-size:13px;opacity:.72}main{max-width:950px;margin:auto;padding:12px 14px 90px}.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:12px}.tabs button{white-space:nowrap}button{border:0;border-radius:11px;padding:10px 13px;font:inherit;font-weight:700;background:#e5e7eb;color:#111827}.primary{background:#111827;color:#fff}.success{background:#dcfce7}.danger{background:#fee2e2}.card{background:#fff;border-radius:15px;padding:16px;margin-bottom:13px;box-shadow:0 1px 5px #0001}textarea,input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;font:inherit}textarea{min-height:145px;resize:vertical}label{display:block;font-size:13px;font-weight:750;margin:10px 0 5px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}.hidden{display:none}.record-timer{font-variant-numeric:tabular-nums;font-size:22px;font-weight:800;text-align:center;padding:8px;margin-top:8px;border:1px solid #e5e7eb;border-radius:10px;background:#f9fafb}.muted{color:#6b7280;font-size:13px}.item{border:1px solid #e5e7eb;border-radius:12px;padding:12px;margin:9px 0}.item h3{margin:0 0 4px;font-size:16px}.badge{display:inline-block;background:#eef2ff;border-radius:99px;padding:4px 8px;font-size:12px;margin:3px}.status{padding:9px 10px;border-radius:9px;background:#f9fafb;margin-top:8px}.ok{color:#166534;background:#f0fdf4}.warn{color:#92400e;background:#fff7ed}.err{color:#991b1b;background:#fef2f2}.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{background:#f9fafb;padding:12px;border-radius:10px}.stat b{display:block;font-size:20px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;padding:10px 14px;border-radius:10px;display:none;z-index:30}@media(max-width:650px){.statgrid{grid-template-columns:1fr 1fr}.actions button{flex:1}}
-</style></head><body><header><h1>AI WorkLog V5.4.0</h1><div class="sub">Faithful voice transcription • Local-first • Free-first</div></header><main>
+</style></head><body><header><h1>AI WorkLog V5.4.1</h1><div class="sub">Voice-first • Separate AI Queue review • Local-first • Free-first</div></header><main>
 <div class="tabs"><button class="primary" data-p="work">Daily Work</button><button data-p="tasks">Tasks</button><button data-p="report">Weekly Excel</button><button data-p="projects">Projects</button><button data-p="queue">AI Queue</button><button data-p="backup">Backup</button><button data-p="ai">AI Settings</button></div>
 <section id="work"><div class="card"><h2>🎙️ Daily Work</h2><div id="net" class="status"></div><label>Date</label><input id="date" type="date"><label>Dictate or type</label><textarea id="workText" placeholder="In Harohalli, for the API Greenfield project, I reviewed..."></textarea><div class="actions"><button id="record" class="primary">🔴 Record</button><button id="stop" disabled>⏹ Stop</button><button id="organize">✨ AI Organize</button><button id="localOrganize">🧠 Local Organize</button><button id="saveText">💾 Save Text</button><button id="clear">Clear</button></div><div id="recordTimer" class="record-timer hidden">00:00</div><div id="workStatus" class="status">Ready.</div><div id="recordMeta" class="muted hidden" style="margin-top:7px"></div><div id="resolvePanel" class="hidden"></div><audio id="player" controls class="hidden" style="width:100%;margin-top:10px"></audio></div>
 <div class="card"><h2>AI Review</h2><div id="review" class="muted">AI results will appear here before saving.</div><div class="actions"><button id="approve" class="success">✓ Approve & Save</button></div></div><div class="card"><h2>Saved for this date</h2><div id="today"></div></div></section>
 <section id="tasks" class="hidden"><div class="card"><h2>📌 New Task</h2><textarea id="taskText" placeholder="I have been assigned to review the HVAC drawings for Hyderabad expansion and submit comments by Friday."></textarea><div class="actions"><button id="taskAnalyze" class="primary">✨ AI Extract</button><button id="taskSave">Save Text Task</button></div><div id="taskReview"></div></div><div class="card"><h2>Task Dashboard</h2><div id="taskStats"></div><div id="taskList"></div></div></section>
 <section id="report" class="hidden"><div class="card"><h2>📊 Weekly Report</h2><label>Week starting Monday</label><input id="week" type="date"><div class="actions"><button id="preview">Preview</button><button id="export" class="primary">📥 Export .xlsx</button></div><div id="weekly"></div></div></section>
 <section id="projects" class="hidden"><div class="card"><h2>🧠 Location → Project Memory</h2><p class="muted">One per line: Location | Project, alias 1, alias 2</p><div class="status warn">Example: Harohalli | API Greenfield Project, API project, ML-34</div><textarea id="projectText" placeholder="Harohalli | API Greenfield Project, API project, ML-34"></textarea><button id="saveProjects" class="primary" style="margin-top:8px">Save</button></div></section>
-<section id="queue" class="hidden"><div class="card"><h2>⏳ AI Queue</h2><p class="muted">Recorded audio is stored locally. Nothing is uploaded automatically. AI processing uploads only the selected recording when you explicitly process it. V5.4 separates transcription from organization so the original dictation is preserved.</p><div class="actions"><button id="retry" class="primary">🎙️ Transcribe → Organize Next</button><button id="clearQueue" class="danger">Clear Queue</button></div><div id="queueList"></div></div></section>
+<section id="queue" class="hidden"><div class="card"><h2>⏳ AI Queue</h2><p class="muted">Recorded audio is stored locally. Nothing is uploaded automatically. AI processing uploads only the selected recording when you explicitly process it. V5.4.1 keeps AI Queue review separate from Daily Work. Daily Work AI Organize and Local Organize work independently on the text box.</p><div class="actions"><button id="retry" class="primary">🎙️ Transcribe → Organize Next</button><button id="clearQueue" class="danger">Clear Queue</button></div><div id="queueList"></div></div></section>
 <section id="backup" class="hidden"><div class="card"><h2>💾 Backup / Restore</h2><p class="muted">Export your local database regularly.</p><div class="actions"><button id="backup" class="primary">Export JSON</button><button id="restore">Import JSON</button><button id="repairWork" class="success">🧹 Repair Existing Work</button><input id="backupFile" type="file" accept="application/json" hidden></div><div id="repairStatus" class="status muted">Repair only changes records that are clearly Unspecified or exact duplicates; it does not clear your database.</div></div></section>
 <section id="ai" class="hidden"><div class="card"><h2>🤖 AI Settings</h2><p class="muted">AI is optional. Local work, tasks, queue and Excel do not require it. Verified model: Gemini 3.1 Flash-Lite — audio input + structured output + Free Tier.</p><label>Gemini API key</label><input id="key" type="password"><label>Model</label><select id="model"><option value="gemini-3.1-flash-lite">gemini-3.1-flash-lite — Verified Free Tier</option></select><div class="actions"><button id="saveAI" class="primary">Save</button><button id="testAI">Test</button><button id="removeAI" class="danger">Remove</button></div></div></section></main><div id="toast" class="toast"></div><script src="xlsx-writer.js"></script><script>
 'use strict';const $=id=>document.getElementById(id),DB='AIWorkLog53',STORE=['work','tasks','raw','projects','settings','queue'];let db,rec=null,chunks=[],reviewData=null,taskData=null,recordStartedAt=null,recordTimer=null;const nowLocal=()=>new Date();const pad=n=>String(n).padStart(2,'0');const localDate=d=>{d=d||nowLocal();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};const localTime=d=>{d=d||nowLocal();return pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())};const localDateTime=d=>localDate(d)+' '+localTime(d);const today=()=>localDate();$('date').value=today();
@@ -56,7 +56,18 @@ function renderReview(){
   $('review').innerHTML=h;
 }
 window.removeGroup=i=>{reviewData.entries.splice(i,1);renderReview()};
-$('organize').onclick=async()=>{try{status($('workStatus'),'AI organizing…');const t=$('workText').value.trim();if(!t)throw Error('Enter or dictate your work first.');reviewData=await ai(WP+'\nProject memory:\n'+await memory()+'\nDate: '+$('date').value+'\nDictation:\n'+t,ws);renderReview();status($('workStatus'),'Review the result, edit if needed, then approve.','ok')}catch(e){status($('workStatus'),e.message,'err')}};
+$('organize').onclick=async()=>{
+  try{
+    const t=$('workText').value.trim();
+    if(!t)throw Error('Enter or dictate your work first.');
+    if(!navigator.onLine)throw Error('Offline. AI Organize needs an internet connection. Use Local Organize while offline.');
+    status($('workStatus'),'AI Organize is processing the text in the box…','warn');
+    reviewData=await ai(WP+'\nProject memory:\n'+await memory()+'\nDate: '+$('date').value+'\nDictation (text only):\n'+t,ws);
+    reviewData.transcript=t;
+    renderReview();
+    status($('workStatus'),'AI Organize completed. Review the Location → Project → Activities result, then approve.','ok');
+  }catch(e){status($('workStatus'),'AI Organize failed: '+e.message,'err')}
+};
 async function isDuplicateWork(row){const a=await all('work');const key=norm(row.activity);return a.some(x=>x.date===row.date&&x.location===row.location&&x.project===row.project&&norm(x.activity)===key)}
 async function saveEntries(entries,rawText,entryAt,entryDate){const dt=entryAt||nowLocal(),d=entryDate||localDate(dt),stamp=dt.toISOString();let added=0,dupes=0;for(const e of entries)for(const a0 of e.activities){const a=String(a0||'').trim();if(!a)continue;const row={date:d,time:localTime(dt),created:stamp,location:e.location||'Unspecified',project:e.project||'Unspecified',activity:a};if(await isDuplicateWork(row)){dupes++;continue}await put('work',row);added++}if(rawText)await put('raw',{date:d,time:localTime(dt),type:'Daily Work',text:rawText,created:stamp});return {added,dupes}}
 $('approve').onclick=async()=>{
@@ -70,7 +81,48 @@ $('approve').onclick=async()=>{
   reviewData=null;renderReview();renderToday();renderQueue();status($('workStatus'),r.added?'Approved and saved '+r.added+' activity'+(r.added>1?'ies':'')+(r.dupes?' • '+r.dupes+' duplicate skipped':'')+'.':'Nothing new was saved; duplicate entries were skipped.','ok');
 };
 $('saveText').onclick=async()=>{const t=$('workText').value.trim();if(!t){toast('Nothing to save.');return}const r=renderResolve(t);if(!r){status($('workStatus'),'Save blocked: Location → Project could not be resolved. Use AI Organize or add Project Memory.','err');return}const result=await saveEntries([{location:r.location,project:r.project,activities:[cleanActivity(t,r)]}],t);renderToday();status($('workStatus'),result.added?'Saved locally under '+r.location+' → '+r.project+(result.dupes?' • duplicate skipped':''):'Duplicate skipped; no new row created.',result.added?'ok':'warn')};
-$('localOrganize').onclick=()=>{const t=$('workText').value.trim();if(!t){toast('Enter or dictate work first.');return}const r=renderResolve(t);if(!r)return;reviewData={entries:[{location:r.location,project:r.project,activities:[cleanActivity(t,r)]}]};renderReview();status($('workStatus'),'Local Project Memory matched. Review and approve.','ok')};
+function localSegment(text){
+  const source=String(text||'').replace(/\s+/g,' ').trim();
+  const ps=window._projects||[];
+  if(!source)return {entries:[]};
+  const sentences=source.split(/(?<=[.!?])\s+/).map(x=>x.trim()).filter(Boolean);
+  const entries=[];let current=null;
+  for(const sentence of sentences){
+    let best=null;
+    for(const p of ps){
+      const names=[p.location,p.project,...(p.aliases||[])].filter(Boolean).sort((a,b)=>b.length-a.length);
+      const hit=names.find(name=>sentence.toLowerCase().includes(String(name).toLowerCase()));
+      if(hit){
+        const score=(norm(p.location)&&sentence.toLowerCase().includes(norm(p.location).toLowerCase())?2:0)+(norm(p.project)&&sentence.toLowerCase().includes(norm(p.project).toLowerCase())?2:0)+Math.min(hit.length/100,1);
+        if(!best||score>best.score)best={p,score};
+      }
+    }
+    if(best){current=best.p;}
+    if(current){
+      const cleaned=cleanActivity(sentence,current);
+      if(cleaned){
+        const last=entries[entries.length-1];
+        if(last&&norm(last.location)===norm(current.location)&&norm(last.project)===norm(current.project)) last.activities.push(cleaned);
+        else entries.push({location:current.location,project:current.project,activities:[cleaned]});
+      }
+    }else{
+      entries.push({location:'Unspecified',project:'Unspecified',activities:[sentence]});
+    }
+  }
+  return {entries};
+}
+$('localOrganize').onclick=async()=>{
+  try{
+    const t=$('workText').value.trim();
+    if(!t){toast('Enter or dictate work first.');return}
+    window._projects=await getProjects();
+    reviewData=localSegment(t);
+    reviewData.transcript=t;
+    if(!reviewData.entries.length)throw Error('Nothing to organize.');
+    renderReview();
+    status($('workStatus'),reviewData.entries.some(e=>e.location==='Unspecified')?'Local Organize completed; some Location/Project details were not found in Project Memory.':'Local Organize completed using Project Memory. Review and approve.','ok');
+  }catch(e){status($('workStatus'),e.message,'err')}
+};
 $('workText').addEventListener('input',()=>{if($('workText').value.trim())renderResolve($('workText').value.trim());else $('resolvePanel').className='hidden'});
 $('clear').onclick=()=>{$('workText').value='';reviewData=null;renderReview();$('resolvePanel').className='hidden';$('player').classList.add('hidden');status($('workStatus'),'Ready.')};
 async function renderToday(){const rows=(await all('work')).filter(x=>x.date===$('date').value),g={};rows.forEach(x=>(g[x.location]??={})[x.project]??=[]);rows.forEach(x=>g[x.location][x.project].push(x));let h='';for(const l in g){h+='<div class="item"><h3>📍 '+esc(l)+'</h3>';for(const p in g[l])h+='<b>'+esc(p)+'</b><ul>'+g[l][p].map(x=>'<li>'+(x.time?'<span class="badge">'+esc(x.time)+'</span> ':'')+esc(x.activity)+'</li>').join('')+'</ul>';h+='</div>'}$('today').innerHTML=h||'<span class="muted">No saved work.</span>'}$('date').onchange=renderToday;
@@ -98,11 +150,30 @@ async function processQueueItem(q){
   result.recordingTime=q.time||'';
   result.recordingDurationSec=q.durationSec||0;
   q.status='Review';q.processedAt=new Date().toISOString();q.transcript=transcript;q.aiResult=result;q.error='';await put('queue',q);
-  reviewData=result;$('workText').value=transcript;renderReview();status($('workStatus'),'Voice transcribed faithfully, then organized separately. Review carefully before approving.','ok');return result;
+  return result;
 }
-async function openQueueReview(q){if(!q?.aiResult){toast('No saved AI review for this item. Process it first.');return}reviewData={...q.aiResult,queueId:q.id,entryAt:q.recordingStart||q.created,entryDate:q.date};$('workText').value=q.transcript||reviewData.transcript||'';renderReview();document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));$('work').classList.remove('hidden');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('primary'));document.querySelector('[data-p="work"]').classList.add('primary');status($('workStatus'),'Saved AI review reopened. Check it before approving.','ok')}
+async function openQueueReview(q){
+  if(!q?.aiResult){toast('No saved AI review for this item. Process it first.');return}
+  reviewData={...q.aiResult,queueId:q.id,entryAt:q.recordingStart||q.created,entryDate:q.date};
+  $('workText').value=q.transcript||reviewData.transcript||'';
+  renderReview();
+  document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));
+  $('work').classList.remove('hidden');
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('primary'));
+  document.querySelector('[data-p="work"]').classList.add('primary');
+  status($('workStatus'),'Opened from AI Queue. The recording is already processed — no new recording is required. Review, edit, then approve.','ok');
+}
 window.openQueueReview=openQueueReview;
-$('retry').onclick=async()=>{if(!navigator.onLine){toast('Offline. Nothing was uploaded.');return}if(reviewData?.queueId){toast('Finish the current voice review before processing another recording.');return}const q=(await all('queue')).filter(x=>x.status==='Pending').sort((a,b)=>String(a.created).localeCompare(String(b.created)))[0];if(!q){toast('No pending recordings.');return}status($('workStatus'),'Processing one selected recording: faithful transcription → organization…','warn');try{await processQueueItem(q);renderQueue();}catch(e){q.error=e.message;await put('queue',q);renderQueue();status($('workStatus'),'AI processing failed. The recording remains safely in the queue. '+e.message,'err')}};
+$('retry').onclick=async()=>{
+  if(!navigator.onLine){toast('Offline. Nothing was uploaded.');return}
+  if(reviewData?.queueId){toast('Finish or clear the current voice review before processing another recording.');return}
+  const q=(await all('queue')).filter(x=>x.status==='Pending').sort((a,b)=>String(a.created).localeCompare(String(b.created)))[0];
+  if(!q){toast('No pending recordings.');return}
+  const oldText=$('workText').value;
+  status($('workStatus'),'Processing one selected recording: faithful transcription → organization…','warn');
+  try{await processQueueItem(q);$('workText').value=oldText;reviewData=null;renderReview();renderQueue();toast('Transcription and organization are ready in AI Queue. Tap Open Review.');status($('workStatus'),'AI Queue item processed. Open it from AI Queue to review; Daily Work was not changed automatically.','ok')}
+  catch(e){q.error=e.message;await put('queue',q);renderQueue();status($('workStatus'),'AI processing failed. The recording remains safely in the queue. '+e.message,'err')}
+};
 async function renderQueue(){const q=(await all('queue')).sort((a,b)=>String(b.created||'').localeCompare(String(a.created||'')));$('queueList').innerHTML=q.length?q.map(x=>'<div class="item"><b>🎙️ '+esc(x.type)+'</b> <span class="badge">'+esc(x.status)+'</span> <span class="badge">'+esc(x.date)+'</span>'+(x.time?'<span class="badge">'+esc(x.time)+'</span>':'')+(x.durationSec!=null?'<span class="badge">'+formatDuration(x.durationSec)+'</span>':'')+(x.transcript?'<p class="muted">Transcript ready for review.</p>':'')+(x.error?'<p class="status err">'+esc(x.error)+'</p>':'')+(x.status==='Review'?'<button class="success" onclick="openQueueReview('+x.id+')">Open Review</button>':'')).join(''):'<span class="muted">Queue empty.</span>'}
 $('clearQueue').onclick=async()=>{await clearS('queue');reviewData=null;renderQueue();toast('Queue cleared.')};
 $('taskAnalyze').onclick=async()=>{try{const t=$('taskText').value.trim();if(!t)throw Error('Enter or dictate a task first.');taskData=(await ai(TP+'\nProject memory:\n'+await memory()+'\nDate: '+today()+'\nDictation:\n'+t,ts)).tasks;renderTaskAI()}catch(e){$('taskReview').innerHTML='<div class="status err">'+esc(e.message)+'</div>'}};function renderTaskAI(){$('taskReview').innerHTML=taskData?.length?taskData.map((t,i)=>'<div class="item"><b>'+esc(t.task)+'</b><br><span class="badge">'+esc(t.location)+'</span><span class="badge">'+esc(t.project)+'</span><span class="badge">'+esc(t.priority)+'</span>'+(t.due_date?'<span class="badge">Due '+esc(t.due_date)+'</span>':'')+'<p class="muted">'+esc(t.notes)+'</p><button class="success" onclick="addTask('+i+')">Add Task</button></div>').join(''):'No tasks detected.'}window.addTask=async i=>{const t=taskData[i],existing=(await all('tasks')).filter(x=>x.status!=='Done');if(existing.some(x=>x.location===t.location&&x.project===t.project&&norm(x.task)===norm(t.task))){toast('Duplicate open task skipped.');return}await put('tasks',{created:today(),...t,status:'Open'});renderTasks();toast('Task added.')};$('taskSave').onclick=async()=>{const t=$('taskText').value.trim();if(!t){toast('Nothing to save.');return}const r=resolveProject(t);if(!r){$('taskReview').innerHTML='<div class="status warn">Location → Project could not be resolved from Project Memory. Add the relationship under Projects or use AI Extract.</div>';return}const task=cleanActivity(t,r);const existing=(await all('tasks')).filter(x=>x.status!=='Done');if(existing.some(x=>x.location===r.location&&x.project===r.project&&norm(x.task)===norm(task))){toast('Duplicate open task skipped.');return}await put('tasks',{created:today(),location:r.location,project:r.project,task,due_date:'',priority:'Medium',notes:'',status:'Open'});renderTasks();toast('Task saved under '+r.location+' → '+r.project+'.')};
