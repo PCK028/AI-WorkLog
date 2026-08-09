@@ -1,1 +1,8 @@
-{"name":"AI WorkLog V5.3","short_name":"WorkLog","start_url":"./","display":"standalone","background_color":"#f3f4f6","theme_color":"#111827"}
+{
+  "name": "AI WorkLog V5.3.5",
+  "short_name": "WorkLog",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#111827"
+}
